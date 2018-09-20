@@ -19,16 +19,24 @@ public class Publisher {
 		 this.message = message;//"HELLO WORLD";
 	}
 	
-	public static void initPublisherClient(String topic, String msg, boolean closeable) throws MqttException {
-		new Publisher(topic, msg).init(closeable);
+	public static void initPublisherClient(String host, String topic, String msg, boolean closeable, int cod) throws MqttException {
+		new Publisher(topic, msg).init(closeable, cod, host);
 	}
 	
-	public void init(boolean closeable) throws MqttException {
+	public void init(boolean closeable, int instanceCod, String host) throws MqttException {
 		try {
 			MqttMessage mqttMsg = createMessage(message);
 			MqttConnectOptions options = getConnection();
 			
-			publisher = getLocalClient(); 
+			if (instanceCod == 0) {
+				publisher = getLocalClient();
+			} else if (instanceCod == 1) {
+				publisher = getClient(host);
+			} else if (instanceCod == 2) {
+				publisher = getEclipseClient();
+			} else {
+				throw new MqttException(new IllegalArgumentException("Valor de Instancia não reconhecido"));
+			}
 			publisher.connect(options);
 			publisher.publish(topic, mqttMsg);
 			

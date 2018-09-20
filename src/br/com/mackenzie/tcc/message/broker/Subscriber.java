@@ -64,7 +64,7 @@ public class Subscriber {
 			
 			@Override
 			public void messageArrived(String topic, MqttMessage message) throws Exception {
-				receivedMessage.append(" Topic<" + topic + " \n");
+				receivedMessage.append(" Topic<" + topic + "> \n");
 				receivedMessage.append(" Message: " + new String(message.getPayload()) + " \n");
 			}
 			

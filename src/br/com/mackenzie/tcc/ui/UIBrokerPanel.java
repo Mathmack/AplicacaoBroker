@@ -57,6 +57,11 @@ public class UIBrokerPanel {
 				TITLE, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, icon, options, 0);
 	}
 	
+	public int showOptionDialog(Object message, Object options[]) {
+		return JOptionPane.showOptionDialog(null, message, 
+				TITLE, JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, icon, options, 0);
+	}
+	
 	public int showConfirmDialog(Object message) {
 		return JOptionPane.showConfirmDialog(null, message, TITLE, JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, icon);
 	}

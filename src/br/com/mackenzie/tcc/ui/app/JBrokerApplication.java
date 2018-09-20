@@ -40,11 +40,17 @@ public class JBrokerApplication {
 
 			case 1:
 				if (!pubFlag) {
+					int instanceCod = panel.showOptionDialog("Modo de Conexão: ", 
+							new Object[] {"Local Broker", "IP Broker", "Eclipse Broker"});
+					String host = null;
+					if (instanceCod == 1) {
+						host = panel.showInputDialog("Insira o IP destino: ");
+					}
 					result = panel.showConfirmDialog("O Cliente Publisher será encerrado após usa execução?");
 					panel.showWarningDialog("O valor do topico deve ser o mesmo para o Publisher e o Subscriber");
 					String topico = panel.showInputDialog("Digite o topico (ID): ");
 					String msgEnviada = panel.showInputDialog("Digite a mensagem (Comando): ");
-					Publisher.initPublisherClient(topico, msgEnviada, result == 0 ? Boolean.TRUE : Boolean.FALSE);
+					Publisher.initPublisherClient(host, topico, msgEnviada, result == 0 ? Boolean.TRUE : Boolean.FALSE, instanceCod);
 					closePubFlag = result == 0 ? Boolean.TRUE : Boolean.FALSE;
 					pubFlag = true;
 				} else {
